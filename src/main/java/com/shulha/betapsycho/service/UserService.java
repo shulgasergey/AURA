@@ -1,23 +1,20 @@
 package com.shulha.betapsycho.service;
 
-import com.shulha.betapsycho.dto.auth.LoginRequestDto;
-import com.shulha.betapsycho.dto.auth.PinRequestDto;
 import com.shulha.betapsycho.dto.auth.RegistrationRequestDto;
-import com.shulha.betapsycho.model.User;
 import com.shulha.betapsycho.repository.UserRepository;
 import com.shulha.betapsycho.security.JwtTokenProvider;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.expression.spel.ast.OpAnd;
+import com.shulha.betapsycho.dto.auth.LoginRequestDto;
+import com.shulha.betapsycho.dto.user.UserPreferences;
+import com.shulha.betapsycho.dto.auth.PinRequestDto;
+import com.shulha.betapsycho.model.User;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * This source code and all associated intellectual property
@@ -94,5 +91,25 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("Invalid PIN");
         }
+    }
+
+    public void changeUserPreferences(Long userId, UserPreferences userPreferences) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User with this id doesn't exist"));
+
+        if (userPreferences.getModelAnswerType() != null) {
+            user.setModelAnswerType(userPreferences.getModelAnswerType());
+        }
+
+        if (userPreferences.getModelCommunicationStyle() != null) {
+            user.setModelCommunicationStyle(userPreferences.getModelCommunicationStyle());
+        }
+
+        if (userPreferences.getUserPersonalInterests() != null
+                && !(userPreferences.getUserPersonalInterests().isEmpty())) {
+            user.setUserPersonalInterests(userPreferences.getUserPersonalInterests());
+        }
+
+        userRepository.save(user);
     }
 }

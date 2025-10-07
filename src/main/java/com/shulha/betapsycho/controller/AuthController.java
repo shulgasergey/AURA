@@ -1,21 +1,25 @@
 package com.shulha.betapsycho.controller;
 
+import com.shulha.betapsycho.dto.auth.RegistrationRequestDto;
 import com.shulha.betapsycho.dto.auth.LoginRequestDto;
 import com.shulha.betapsycho.dto.auth.PinRequestDto;
-import com.shulha.betapsycho.dto.auth.RegistrationRequestDto;
+import com.shulha.betapsycho.service.UserService;
 import com.shulha.betapsycho.service.AuthService;
 import com.shulha.betapsycho.service.OtpService;
-import com.shulha.betapsycho.service.UserService;
-import jakarta.mail.MessagingException;
+
 import jakarta.validation.constraints.Email;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This source code and all associated intellectual property
@@ -56,7 +60,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody RegistrationRequestDto registrationRequestDto) {
+    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegistrationRequestDto registrationRequestDto) {
         log.info("New request to register user");
         String pinToken = userService.registerUser(registrationRequestDto);
         log.info("User registered successfully");

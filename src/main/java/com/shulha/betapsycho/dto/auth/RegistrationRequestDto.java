@@ -1,5 +1,6 @@
 package com.shulha.betapsycho.dto.auth;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -15,7 +16,10 @@ import lombok.Data;
 
 @Data
 public class RegistrationRequestDto {
+    @NotNull
     private String email;
+    @NotNull
     private String password;
+    @NotNull
     private String deviceId;
 }

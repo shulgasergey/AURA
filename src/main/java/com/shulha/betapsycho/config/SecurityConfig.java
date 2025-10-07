@@ -11,8 +11,6 @@ package com.shulha.betapsycho.config;
  * Copyright © 2025 BetaPsycho Serhii Shulha.
  */
 
-import com.shulha.betapsycho.security.SecurityProperties;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,8 +28,10 @@ import org.springframework.security.config.Customizer;
 import org.springframework.context.annotation.Bean;
 
 import com.shulha.betapsycho.security.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
+import com.shulha.betapsycho.security.SecurityProperties;
 
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Configuration

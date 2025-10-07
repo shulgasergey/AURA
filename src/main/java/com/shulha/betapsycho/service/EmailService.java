@@ -1,14 +1,13 @@
 package com.shulha.betapsycho.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.MessagingException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 
